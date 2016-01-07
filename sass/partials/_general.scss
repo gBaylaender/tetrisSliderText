@@ -7,21 +7,24 @@
 }
 
 .slides {
-  height: 300px;
+  //height: 300px;
   margin: 0;
   padding: 0;
   position: relative;
+  background:red;
+  @extend .clearfix;
 }
 
 .slide {
   position:relative;
   background-color: white;
-  width:500px;
+  //width:500px;
   display: block;
   float: left;
-  height: 300px;
+  //height: 300px;
   text-align: left;
-  //  display: none;
+  @extend .clearfix;
+
 }
 
 .slide__1 {

@@ -433,18 +433,16 @@ textarea {
   position: relative; }
 
 .slides {
-  height: 300px;
   margin: 0;
   padding: 0;
-  position: relative; }
+  position: relative;
+  background: red; }
 
 .slide {
   position: relative;
   background-color: white;
-  width: 500px;
   display: block;
   float: left;
-  height: 300px;
   text-align: left; }
 
 .slide__1 {
@@ -515,15 +513,17 @@ a.control_next {
 .invisible {
   visibility: hidden; }
 
-.clearfix:before,
-.clearfix:after {
+.clearfix:before, .slides:before, .slide:before,
+.clearfix:after,
+.slides:after,
+.slide:after {
   content: " ";
   display: table; }
 
-.clearfix:after {
+.clearfix:after, .slides:after, .slide:after {
   clear: both; }
 
-.clearfix {
+.clearfix, .slides, .slide {
   *zoom: 1; }
 
 @media print {

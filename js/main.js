@@ -2,6 +2,7 @@
     $.fn.slideTexting = function(options) {
         return this.each(function() {
 
+            //Plugin settings
             var settings = $.extend({
                 wrapper: '.wrapper',
                 container: '.slides',
@@ -9,65 +10,50 @@
                 text: '.text',
                 speed: 3000,
                 autoSlide: false
-
-
             }, options);
 
-            $('#checkbox').change(function() {
-                setInterval(function() {
-                    moveRight();
-                }, settings.speed);
-            });
 
-            var slideCount = $(settings.slide).length,
-                slideWidth = $(settings.slide).width(),
-                slideHeight = $(settings.slide).height(),
-                sliderUlWidth = slideCount * slideWidth;
+            //Variables
+            var wrapperW = $(settings.wrapper).width(), //get width of the wrapper
+                nSlides = $(settings.slide).length, // get how many slide have
+                textsW = $(settings.text).each(function() { //get all width for each text
+                    var w = $(this).width();
+                    $(this).attr('data-textwidth', w); //set attr data-textwidth to the element text
+                }),
+                slidesW = $(settings.slide).each(function() {
+                    var w = $(this).width();
 
-            $(settings.wrapper).css({
-                width: slideWidth,
-                height: slideHeight
-            });
+                    $(this).attr('data-slidewidth', w); //set attr data-textwidth to the element text
 
-            $(settings.container).css({
-                width: sliderUlWidth,
-                marginLeft: -slideWidth
-            });
 
-            $(settings.slide + ':last-child').prependTo(settings.container);
 
-            function moveLeft() {
-                $(settings.container).animate({
-                    left: +slideWidth
-                }, 200, function() {
-                    $(settings.slide + ':last-child').prependTo(settings.container);
-                    $(settings.container).css('left', '');
-                });
-            }
+                }),
+                currentIndex = 1; // current Index
 
-            function moveRight() {
-                $(settings.container).animate({
-                    left: -slideWidth
-                }, 200, function() {
-                    $(settings.slide + ':first-child').appendTo(settings.container);
-                    $(settings.container).css('left', '');
-                });
-            }
 
-            $('a.control_prev').click(function() {
-                moveLeft();
-            });
+            console.log('Wrapper W: ' + wrapperW + ' nSlides: ' + nSlides);
 
-            $('a.control_next').click(function() {
-                moveRight();
-            });
+
+            //Functions
+
+            //Add number of the slide
+            animationSlide = function() {
+                if (true) {
+                    //slideW of current == margin-left of second element is
+
+
+                } else {
+
+                }
+
+            };
+
 
 
 
 
         });
     };
-
 }(jQuery));
 
 
@@ -77,7 +63,11 @@ $(document).ready(function() {
 });
 
 
-
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 /*
 ///TEST
 var currentIndex = 0,
@@ -143,5 +133,56 @@ console.log(nItems + ' textW:' + textW);
 /*
 //SLIDER
 ///////////////////////////
+
+            $('#checkbox').change(function() {
+                setInterval(function() {
+                    moveRight();
+                }, settings.speed);
+            });
+
+            var slideCount = $(settings.slide).length,
+                slideWidth = $(settings.slide).width(),
+                slideHeight = $(settings.slide).height(),
+                sliderUlWidth = slideCount * slideWidth;
+
+            $(settings.wrapper).css({
+                width: slideWidth,
+                height: slideHeight
+            });
+
+            $(settings.container).css({
+                width: sliderUlWidth,
+                marginLeft: -slideWidth
+            });
+
+            $(settings.slide + ':last-child').prependTo(settings.container);
+
+            function moveLeft() {
+                $(settings.container).animate({
+                    left: +slideWidth
+                }, 200, function() {
+                    $(settings.slide + ':last-child').prependTo(settings.container);
+                    $(settings.container).css('left', '');
+                });
+            }
+
+            function moveRight() {
+                $(settings.container).animate({
+                    left: -slideWidth
+                }, 200, function() {
+                    $(settings.slide + ':first-child').appendTo(settings.container);
+                    $(settings.container).css('left', '');
+                });
+            }
+
+            $('a.control_prev').click(function() {
+                moveLeft();
+            });
+
+            $('a.control_next').click(function() {
+                moveRight();
+            });
+
+
 
 */
