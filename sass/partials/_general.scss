@@ -24,19 +24,22 @@
   padding: $gutter;
   //width:100%;
   @extend .clearfix;
+  opacity:0;
+  left:0;
+  @include transition(opacity,1s,ease);
 }
 
 .slide__0 {
-  background: $c-1;
+  //background: $c-1;
   font-weight:bold;
 }
 
 .slide__1 {
-  background: $c-2;
+  //background: $c-2;
 }
 
 .slide__2 {
-  background: $c-3;
+  //background: $c-3;
 }
 .slide--hide {
   display:none;
@@ -50,6 +53,12 @@
   background-color: rgba(255,255,255,0.2);
 }
 
+.slide--is-active {
+  opacity: 1;
+}
+.slide--showing {
+  opacity: 1;
+}
 
 // Btn next / prev
 .control_prev, .control_next {

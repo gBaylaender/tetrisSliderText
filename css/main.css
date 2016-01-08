@@ -444,17 +444,17 @@ textarea {
   display: block;
   float: left;
   text-align: left;
-  padding: 10px; }
+  padding: 10px;
+  opacity: 0;
+  left: 0;
+  -webkit-transition: opacity 1s ease;
+  -moz-transition: opacity 1s ease;
+  -ms-transition: opacity 1s ease;
+  -o-transition: opacity 1s ease;
+  transition: opacity 1s ease; }
 
 .slide__0 {
-  background: rgba(3, 148, 160, 0.1);
   font-weight: bold; }
-
-.slide__1 {
-  background: rgba(255, 143, 65, 0.2); }
-
-.slide__2 {
-  background: rgba(115, 32, 47, 0.3); }
 
 .slide--hide {
   display: none; }
@@ -464,6 +464,12 @@ textarea {
   clear: left;
   font-size: 1.4em;
   background-color: rgba(255, 255, 255, 0.2); }
+
+.slide--is-active {
+  opacity: 1; }
+
+.slide--showing {
+  opacity: 1; }
 
 .control_prev, .control_next {
   position: absolute;

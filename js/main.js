@@ -9,11 +9,13 @@
                 slide: '.slide',
                 text: '.slide__text',
                 isActive: 'slide--is-active',
+                isShowing: 'slide--showing',
                 speed: 3000,
                 pause: 2000,
                 autoSlide: false,
                 speedMargin: 800,
-                gutter: 0
+                gutter: 0,
+                slidingTheme: false
             }, options);
 
             //DOM cache
@@ -61,10 +63,11 @@
             //#0 START
             //////////////////////////////////////////////////////////////////////////////
 
-            $(settings.container).css('min-width', containerWidth); //set the width of container based on the slide elements
 
-            $(settings.slide).not('.' + settings.isActive).css('left', wrapperW); //All slide go out the wrapper, but not first element
-
+            if (settings.slidingTheme === true) {
+                $(settings.container).css('min-width', containerWidth); //set the width of container based on the slide elements
+                $(settings.slide).not('.' + settings.isActive).css('left', wrapperW); //All slide go out the wrapper, but not first element
+            }
 
 
 
@@ -75,13 +78,22 @@
             //#1 Next slide coming
             //////////////////////////////////////////////////////////////////////////////
             slideAnimationNext = function(callback) {
+                console.log('#1');
+
                 var $slideActive = $('.' + settings.isActive),
                     slideActiveW = $slideActive.outerWidth();
 
-                $slideActive
-                    .next().animate({
-                        'left': 0 //slideActiveW - settings.gutter
-                    }, settings.speedMargin);
+                if (settings.slidingTheme === true) {
+                    $slideActive
+                        .next().animate({
+                            'left': 0
+                        }, settings.speedMargin);
+
+                } else {
+                    $slideActive.next().css({
+                        'left': 0
+                    });
+                }
 
                 setTimeout(function() {
                     callback();
@@ -93,31 +105,29 @@
             //#2 Next slide coming (text tetris)
             //////////////////////////////////////////////////////////////////////////////
             animationTextTetris = function() {
+                console.log('#2');
                 var $slideActive = $('.' + settings.isActive),
                     $slideActiveNext = $slideActive.next(),
                     $this = $($slideActiveNext),
                     activeSlideW = $slideActive.width(),
                     nText = $this.find(settings.text).length;
 
+                $this.addClass(settings.isShowing);
 
-                console.log('nText: ' + nText + ' SlideNextClass: ' + $slideActiveNext.attr('class'));
+                if (settings.slidingTheme === true) {
+                    for (var i = 0; i < nText; i++) {
+                        $this.find('.slide__text__' + i).animate({
+                            'margin-left': -1 * (activeSlideW - $slideActive.find('.slide__text__' + i).width())
+                        }, settings.speedMargin);
+                    }
+                } else {
+                    for (var p = 0; p < nText; p++) {
+                        $this.find('.slide__text__' + p).css({
+                            'margin-left': -1 * (activeSlideW - $slideActive.find('.slide__text__' + p).width())
+                        });
+                    }
 
-                for (var i = 0; i < nText; i++) {
-                    $this.find('.slide__text__' + i).animate({
-                        'margin-left': -1 * (activeSlideW - $slideActive.find('.slide__text__' + i).width())
-                    }, settings.speedMargin);
-                    console.log('slideText__' + i);
                 }
-
-                // $this.find('.slide__text__1').animate({
-                //     'margin-left': -1 * (activeSlideW - activeTxt1W)
-                // }, settings.speedMargin);
-                // $this.find('.slide__text__2').animate({
-                //     'margin-left': -1 * (activeSlideW - activeTxt2W)
-                // }, settings.speedMargin);
-                // $this.find('.slide__text__3').animate({
-                //     'margin-left': -1 * (activeSlideW - activeTxt3W)
-                // }, settings.speedMargin);
             };
 
 
@@ -125,11 +135,10 @@
             //#3 slideActive go out, next slide take positio as slideActive
             //////////////////////////////////////////////////////////////////////////////
             animationSlideActive = function() {
+                console.log('#3');
 
                 var $slideActive = $('.' + settings.isActive),
                     slideActiveW = $slideActive.outerWidth();
-
-                console.log("slideActiveW " + slideActiveW);
 
                 $slideActive
                     .removeClass(settings.isActive)
@@ -138,7 +147,7 @@
                         //'width':0
                     }, settings.speedMargin).queue(function() {
                         $(this).hide();
-                    });
+                    }).removeClass(settings.isShowing);
 
                 $slideActive.next().find(settings.text).animate({
                     'margin-left': 0
@@ -150,7 +159,6 @@
                     .animate({
                         'left': 0
                     }, settings.speedMargin);
-
             };
 
 
@@ -164,11 +172,15 @@
 
 
             $('#btn-1').click(function() {
+                console.log('btn-1');
+
                 slideAnimationNext(function() {
                     animationTextTetris();
                 });
             });
             $('#btn-2').click(function() {
+                console.log('btn-2');
+
                 //setTimeout(function() {
                 animationSlideActive();
                 //}, 3000);
