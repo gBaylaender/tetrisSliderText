@@ -27,7 +27,7 @@
             /////////////////////////////////////////////////
             var containerWidth = 0, //set total width of container/slides
                 wrapperW = $(settings.wrapper).width(), //get width of the wrapper
-                //nSlides = $(settings.slide).length, // get how many slide have
+                nSlides = $(settings.slide).length, // get how many slide have
                 // textsW = $(settings.text).each(function() { //get all width for each text
                 //     var w = Math.ceil($(this).width());
                 //     $(this).attr('data-textwidth', w); //set attr data-textwidth to the element text
@@ -162,6 +162,24 @@
             };
 
 
+            //#4 call function how many time I have the nSlides
+            //////////////////////////////////////////////////////////////////////////////
+
+
+            var time = 5000;
+
+
+            // 
+            // setTimeout(function() {
+            //     slideAnimationNext(function() {
+            //         animationTextTetris();
+            //     });
+            //     setTimeout(function() {
+            //         animationSlideActive();
+            //     }, time);
+            // }, time);
+            //
+            //
 
 
 
@@ -198,6 +216,25 @@
 //run slideTexting
 $(document).ready(function() {
     $('.slideTexting').slideTexting();
+
+
+    // var timingJSON = $.getJSON("timing.json", function() {
+    //         console.log("success");
+    //     }).done(function() {
+    //         console.log("second success");
+    //     })
+    //     .fail(function() {
+    //         console.log("error");
+    //     })
+    //     .always(function() {
+    //         console.log("complete");
+    //     }).complete(function() {
+    //         console.log("second complete");
+    //     });
+    //
+    //
+    //
+    //     console.log('JSON: '+timingJSON.video0.description);
 });
 
 
