@@ -81,10 +81,12 @@
                 $slideActive
                     .next().animate({
                         'left': 0 //slideActiveW - settings.gutter
-                    }, settings.speedMargin)
-                    .queue(function() {
-                        callback();
-                    });
+                    }, settings.speedMargin);
+
+                setTimeout(function() {
+                    callback();
+                }, 300);
+
             };
 
 
@@ -121,7 +123,7 @@
             animationSlideActive = function() {
                 var slideActiveW = $slideActive.outerWidth();
 
-                console.log(slideActiveW);
+                console.log("slideActiveW "+slideActiveW);
 
                 $slideActive
                     .removeClass(settings.isActive)
