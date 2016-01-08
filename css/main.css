@@ -435,12 +435,10 @@ textarea {
 .slides {
   margin: 0;
   padding: 0;
-  position: relative;
   background: red; }
 
 .slide {
   position: relative;
-  background-color: white;
   display: block;
   float: left;
   text-align: left; }
@@ -460,7 +458,7 @@ textarea {
   font-size: 1.4em;
   background-color: rgba(255, 255, 255, 0.2); }
 
-a.control_prev, a.control_next {
+.control_prev, .control_next {
   position: absolute;
   top: 40%;
   z-index: 999;
@@ -476,14 +474,14 @@ a.control_prev, a.control_next {
   opacity: 0.8;
   cursor: pointer; }
 
-a.control_prev:hover, a.control_next:hover {
+.control_prev:hover, .control_next:hover {
   opacity: 1;
   -webkit-transition: all 0.2s ease; }
 
-a.control_prev {
+.control_prev {
   border-radius: 0 2px 2px 0; }
 
-a.control_next {
+.control_next {
   right: 0;
   border-radius: 2px 0 0 2px; }
 

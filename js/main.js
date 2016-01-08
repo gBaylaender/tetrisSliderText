@@ -9,26 +9,32 @@
                 slide: '.slide',
                 text: '.text',
                 speed: 3000,
+                pause: 2000,
                 autoSlide: false
             }, options);
 
 
             //Variables
-            var wrapperW = $(settings.wrapper).width(), //get width of the wrapper
+            var $slideContainer = $(settings.container),
+                containerWidth = 0, //set total width of container/slides
+                wrapperW = $(settings.wrapper).width(), //get width of the wrapper
                 nSlides = $(settings.slide).length, // get how many slide have
                 textsW = $(settings.text).each(function() { //get all width for each text
-                    var w = $(this).width();
+                    var w = Math.ceil($(this).width());
                     $(this).attr('data-textwidth', w); //set attr data-textwidth to the element text
+                    console.log('textW:' + w);
                 }),
-                slidesW = $(settings.slide).each(function() {
-                    var w = $(this).width();
+                slidesW = $(settings.slide).each(function(index) {
+                    var w = Math.ceil($(this).width());
+
+                    containerWidth += parseInt($(this).width(), 10);//calculate the width of container
 
                     $(this).attr('data-slidewidth', w); //set attr data-textwidth to the element text
-
-
-
                 }),
-                currentIndex = 1; // current Index
+                currentSlide = 1; // current Slide
+
+            $(settings.container).css('width',containerWidth);
+
 
 
             console.log('Wrapper W: ' + wrapperW + ' nSlides: ' + nSlides);
@@ -36,17 +42,21 @@
 
             //Functions
 
+
+
+
+
             //Add number of the slide
             animationSlide = function() {
-                if (true) {
-                    //slideW of current == margin-left of second element is
-
-
+                if (currentSlide === nSlides) {
+                    currentSlide = 1;
+                    $slideContainer.css('margin-left', 0);
                 } else {
 
                 }
-
             };
+
+            //slideW of current == margin-left of second element is
 
 
 
