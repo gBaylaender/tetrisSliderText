@@ -25,43 +25,21 @@
             /////////////////////////////////////////////////
             var containerWidth = 0, //set total width of container/slides
                 wrapperW = $(settings.wrapper).width(), //get width of the wrapper
-                nSlides = $(settings.slide).length, // get how many slide have
-                textsW = $(settings.text).each(function() { //get all width for each text
-                    var w = Math.ceil($(this).width());
-                    $(this).attr('data-textwidth', w); //set attr data-textwidth to the element text
-                }),
-                slidesW = $(settings.slide).each(function() {
-                    var w = Math.ceil($(this).outerWidth());
-                    containerWidth += parseInt($(this).outerWidth(), 10); //calculate the width of container
-                    $(this).attr('data-slidewidth', w); //set attr data-textwidth to the element text
-                }),
+                //nSlides = $(settings.slide).length, // get how many slide have
+                // textsW = $(settings.text).each(function() { //get all width for each text
+                //     var w = Math.ceil($(this).width());
+                //     $(this).attr('data-textwidth', w); //set attr data-textwidth to the element text
+                // }),
+                // slidesW = $(settings.slide).each(function() {
+                //     var w = Math.ceil($(this).outerWidth());
+                //     containerWidth += parseInt($(this).outerWidth(), 10); //calculate the width of container
+                //     $(this).attr('data-slidewidth', w); //set attr data-textwidth to the element text
+                // }),
                 currentSlide = 1; // current Slide
 
 
-
-
-            //set the width of container based on the slide elements
-            $(settings.container).css('min-width', containerWidth);
-
-
-
-            //add attr index of the element
-            $(settings.slide).each(function(index) {
-                $(this).attr('data-index', index);
-            });
-
-
-            //play with margin-left
-            //not first element
-            $(settings.slide).not(':first').css('left', wrapperW);
-
-
             //Add number of the slide
-
-
             //get element next active, start animation
-
-
             //////////ANIMATION
             // setInterval(function(){
             //     elToAnimate.animate({'left':0}, animationSpeed,function() {
@@ -72,11 +50,33 @@
             //     });
             // }, stopAnimate);
 
+            // //add attr index of the element
+            // $(settings.slide).each(function(index) {
+            //     $(this).attr('data-index', index);
+            // });
+
+
+
+
+            //#0 START
+            //////////////////////////////////////////////////////////////////////////////
+
+            $(settings.container).css('min-width', containerWidth); //set the width of container based on the slide elements
+
+            $(settings.slide).not('.' + settings.isActive).css('left', wrapperW); //All slide go out the wrapper, but not first element
+
+
+
+
+
+
+
 
             //#1 Next slide coming
             //////////////////////////////////////////////////////////////////////////////
             slideAnimationNext = function(callback) {
-                var slideActiveW = $slideActive.outerWidth();
+                var $slideActive = $('.' + settings.isActive),
+                    slideActiveW = $slideActive.outerWidth();
 
                 $slideActive
                     .next().animate({
@@ -86,23 +86,27 @@
                 setTimeout(function() {
                     callback();
                 }, 300);
-
             };
 
 
 
             //#2 Next slide coming (text tetris)
             //////////////////////////////////////////////////////////////////////////////
-            animationTextTetris = function(el) {
-                var $this = $(el),
+            animationTextTetris = function() {
+                var $slideActive = $('.' + settings.isActive),
+                    $slideActiveNext = $slideActive.next(),
+                    $this = $($slideActiveNext),
                     activeSlideW = $slideActive.width(),
                     nText = $this.find(settings.text).length;
 
-                for (var i = 1; i < nText; i++) {
 
+                console.log('nText: ' + nText + ' SlideNextClass: ' + $slideActiveNext.attr('class'));
+
+                for (var i = 0; i < nText; i++) {
                     $this.find('.slide__text__' + i).animate({
                         'margin-left': -1 * (activeSlideW - $slideActive.find('.slide__text__' + i).width())
                     }, settings.speedMargin);
+                    console.log('slideText__' + i);
                 }
 
                 // $this.find('.slide__text__1').animate({
@@ -121,9 +125,11 @@
             //#3 slideActive go out, next slide take positio as slideActive
             //////////////////////////////////////////////////////////////////////////////
             animationSlideActive = function() {
-                var slideActiveW = $slideActive.outerWidth();
 
-                console.log("slideActiveW "+slideActiveW);
+                var $slideActive = $('.' + settings.isActive),
+                    slideActiveW = $slideActive.outerWidth();
+
+                console.log("slideActiveW " + slideActiveW);
 
                 $slideActive
                     .removeClass(settings.isActive)
@@ -159,7 +165,7 @@
 
             $('#btn-1').click(function() {
                 slideAnimationNext(function() {
-                    animationTextTetris($slideActive.next());
+                    animationTextTetris();
                 });
             });
             $('#btn-2').click(function() {

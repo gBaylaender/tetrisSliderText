@@ -446,14 +446,14 @@ textarea {
   text-align: left;
   padding: 10px; }
 
-.slide__1 {
+.slide__0 {
   background: rgba(3, 148, 160, 0.1);
   font-weight: bold; }
 
-.slide__2 {
+.slide__1 {
   background: rgba(255, 143, 65, 0.2); }
 
-.slide__3 {
+.slide__2 {
   background: rgba(115, 32, 47, 0.3); }
 
 .slide--hide {
