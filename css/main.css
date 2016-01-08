@@ -426,13 +426,15 @@ textarea {
     height: auto; }
 
 .wrapper {
-  width: 500px;
+  width: 50%;
+  max-width: 800px;
   background-color: black;
   margin: 0 auto;
   overflow: hidden;
   position: relative; }
 
 .slides {
+  width: 100%;
   margin: 0;
   padding: 0;
   background: red; }
@@ -441,18 +443,23 @@ textarea {
   position: relative;
   display: block;
   float: left;
-  text-align: left; }
+  text-align: left;
+  padding: 10px; }
 
 .slide__1 {
-  background: rgba(3, 148, 160, 0.5); }
+  background: rgba(3, 148, 160, 0.1);
+  font-weight: bold; }
 
 .slide__2 {
-  background: rgba(255, 143, 65, 0.5); }
+  background: rgba(255, 143, 65, 0.2); }
 
 .slide__3 {
-  background: rgba(115, 32, 47, 0.5); }
+  background: rgba(115, 32, 47, 0.3); }
 
-.text {
+.slide--hide {
+  display: none; }
+
+.slide__text {
   float: left;
   clear: left;
   font-size: 1.4em;
