@@ -10,11 +10,10 @@
                 slideText: '.slide__text',
                 isActive: 'slide--is-active',
                 isShowing: 'slide--showing',
-                pause: 2000,
-                autoSlide: false,
                 speed: 1200,
+                timer: true,
                 timeIn: 0,
-                timeOut: 4000,
+                timeOut: 2000,
                 slidingTheme: false
             }, options);
 
@@ -164,15 +163,19 @@
                 console.log('JSON: ' + timingJSON.video0.slide0.description[1]);
             };
 
-            //Set timing
-            setTimeout(function() {
-                slideAnimationNext(function() {
-                    animationTextTetris();
-                });
-            }, settings.timeIn);
-            setTimeout(function() {
-                animationSlideActive();
-            }, settings.timeOut);
+            if (settings.timer === true) {
+                setTimeout(function() {
+                    slideAnimationNext(function() {
+                        animationTextTetris();
+                    });
+                }, settings.timeIn);
+                setTimeout(function() {
+                    animationSlideActive();
+                }, settings.timeOut);
+
+            }
+            //SET TIMING
+
 
 
 
@@ -181,17 +184,13 @@
                         //TEST
             $('#btn-1').click(function() {
                 console.log('btn-1');
-
                 slideAnimationNext(function() {
                     animationTextTetris();
                 });
             });
             $('#btn-2').click(function() {
                 console.log('btn-2');
-
-                //setTimeout(function() {
                 animationSlideActive();
-                //}, 3000);
             });
 
 
@@ -213,11 +212,13 @@
 //run slideTexting
 $(document).ready(function() {
     $('.slideTexting').slideTexting({
-        timeIn: 300,
-        timeOut: 5000
+        timeOut:1500
     });
-
-
+    // setTimeout(function(){
+    //     $('.slideTexting').slideTexting({
+    //         timeOut:1500
+    //     });
+    // },5000);
 
 });
 
