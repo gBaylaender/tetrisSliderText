@@ -12,7 +12,7 @@
                 isShowing: 'slide--showing',
                 pause: 2000,
                 autoSlide: false,
-                speed: 800,
+                speed: 1200,
                 slidingTheme: false
             }, options);
 
@@ -36,6 +36,7 @@
                     containerWidth += parseInt($(this).outerWidth(), 10); //calculate the width of container
                     $(this).attr('data-slidewidth', w); //set attr data-textwidth to the element text
                 }),
+                speed2 = Math.floor(settings.speed /2),
                 TextSmaller = null,
                 currentSlide = 1; // current Slide
 
@@ -91,11 +92,8 @@
                             'margin-left': -1 * (activeSlideW - $slideActive.find('.slide__text__' + p).attr('data-textwidth'))
                         });
                     }
-
                 }
             };
-
-
 
             //#3 slideActive go out, next slide take positio as slideActive
             //////////////////////////////////////////////////////////////////////////////
@@ -115,10 +113,9 @@
                     .css({
                         'margin-left': -1 * slideActiveOutW,
                         'opacity': 1
-                    }, settings.speed)
-                    .removeClass(settings.isShowing);
+                    }, settings.speed);
 
-                //#C slide active
+                //#C slide active margin left
                 $slideActive.css({
                     'margin-left': -1 * ($(this).attr('data-slidewith'))
                 });
@@ -128,22 +125,21 @@
                 for (var i = 0; i < nText; i++) {
                     $slideActive.find('.slide__text__' + i).animate({
                         'margin-left': (slideActiveW - $slideActive.find('.slide__text__' + i).attr('data-textwidth'))
-                    }, settings.speed);
+                    }, speed2);
                 }
 
                 // re-align all text of next element
                 $slideActive.next()
                     .find(settings.slideText).animate({
                         'margin-left': 0
-                    }, settings.speed);
+                    }, speed2);
 
 
                 //add active class to active.next()
                 $slideActive
                     .removeClass(settings.isActive)
                     .next()
-                    .addClass(settings.isActive);
-
+                    .addClass(settings.isActive).removeClass(settings.isShowing);
             };
 
 
@@ -177,6 +173,12 @@
 
 
 
+            console.log('btn-1');
+
+            slideAnimationNext(function() {
+                animationTextTetris();
+            });
+
 
             $('#btn-1').click(function() {
                 console.log('btn-1');
@@ -200,8 +202,6 @@
         });
     };
 }(jQuery));
-
-
 
 
 

@@ -6,7 +6,7 @@
 .wrapper {
   width: 50%;
   max-width: 800px;
-  background-color: black;
+  background-color: red;
   margin: 0 auto;
   //overflow: hidden;
   position: relative;
@@ -16,7 +16,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  background: red;
+  background:rgba(255,255,255,0.3);
   @extend .clearfix;
   //height:100px;
 }
@@ -31,7 +31,7 @@
   @extend .clearfix;
   opacity: 0;
   left: 0;
-  @include transition(all,800ms,ease);
+  @include transition(all,900ms,ease);
 
   &.text-right {
     opacity: 1;
