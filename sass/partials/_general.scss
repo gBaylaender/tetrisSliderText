@@ -1,37 +1,47 @@
+.general {
+  overflow: hidden;
+  font-size: 2em;
+}
+
 .wrapper {
-  width:50%;
+  width: 50%;
   max-width: 800px;
   background-color: black;
   margin: 0 auto;
-  overflow: hidden;
+  //overflow: hidden;
   position: relative;
 }
 
 .slides {
-  width:100%;
+  width: 100%;
   margin: 0;
   padding: 0;
-  background:red;
+  background: red;
   @extend .clearfix;
   //height:100px;
 }
 
 .slide {
-  position:relative;
+  position: relative;
   display: block;
   float: left;
   text-align: left;
   padding: $gutter;
   //width:100%;
   @extend .clearfix;
-  opacity:0;
-  left:0;
-  @include transition(opacity,1s,ease);
+  opacity: 0;
+  left: 0;
+  @include transition(all,800ms,ease);
+
+  &.text-right {
+    opacity: 1;
+
+  }
 }
 
 .slide__0 {
   //background: $c-1;
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .slide__1 {
@@ -41,10 +51,10 @@
 .slide__2 {
   //background: $c-3;
 }
-.slide--hide {
-  display:none;
-}
 
+.slide--hide {
+  display: none;
+}
 
 .slide__text {
   float: left;
@@ -56,12 +66,13 @@
 .slide--is-active {
   opacity: 1;
 }
+
 .slide--showing {
   opacity: 1;
 }
-
 // Btn next / prev
-.control_prev, .control_next {
+.control_prev,
+.control_next {
   position: absolute;
   top: 40%;
   z-index: 999;
@@ -78,7 +89,8 @@
   cursor: pointer;
 }
 
-.control_prev:hover, .control_next:hover {
+.control_prev:hover,
+.control_next:hover {
   opacity: 1;
   -webkit-transition: all 0.2s ease;
 }
