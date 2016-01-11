@@ -13,6 +13,8 @@
                 pause: 2000,
                 autoSlide: false,
                 speed: 1200,
+                timeIn: 0,
+                timeOut: 4000,
                 slidingTheme: false
             }, options);
 
@@ -36,7 +38,7 @@
                     containerWidth += parseInt($(this).outerWidth(), 10); //calculate the width of container
                     $(this).attr('data-slidewidth', w); //set attr data-textwidth to the element text
                 }),
-                speed2 = Math.floor(settings.speed /2),
+                speed2 = Math.floor(settings.speed / 2),
                 TextSmaller = null,
                 currentSlide = 1; // current Slide
 
@@ -161,16 +163,22 @@
                     });
                 console.log('JSON: ' + timingJSON.video0.slide0.description[1]);
             };
-            //loadVideoTiming();
+
+            //Set timing
+            setTimeout(function() {
+                slideAnimationNext(function() {
+                    animationTextTetris();
+                });
+            }, settings.timeIn);
+            setTimeout(function() {
+                animationSlideActive();
+            }, settings.timeOut);
 
 
-            //# call function how many time I have the nSlides
-            //////////////////////////////////////////////////////////////////////////////
 
 
-            //TEST
 
-
+                        //TEST
             $('#btn-1').click(function() {
                 console.log('btn-1');
 
@@ -204,7 +212,10 @@
 
 //run slideTexting
 $(document).ready(function() {
-    $('.slideTexting').slideTexting();
+    $('.slideTexting').slideTexting({
+        timeIn: 300,
+        timeOut: 5000
+    });
 
 
 
