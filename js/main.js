@@ -171,15 +171,6 @@
             //TEST
 
 
-
-
-            console.log('btn-1');
-
-            slideAnimationNext(function() {
-                animationTextTetris();
-            });
-
-
             $('#btn-1').click(function() {
                 console.log('btn-1');
 
@@ -202,26 +193,6 @@
         });
     };
 }(jQuery));
-
-
-
-
-//Add number of the slide
-//get element next active, start animation
-//////////ANIMATION
-// setInterval(function(){
-//     elToAnimate.animate({'left':0}, animationSpeed,function() {
-//         currentSlide++;
-//         if (currentSlide == nSlides) {
-//             clearInterval(interval);
-//         }
-//     });
-// }, stopAnimate);
-
-// //add attr index of the element
-// $(settings.slide).each(function(index) {
-//     $(this).attr('data-index', index);
-// });
 
 
 
