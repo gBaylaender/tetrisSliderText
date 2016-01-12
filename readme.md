@@ -2,16 +2,16 @@
 work in progress
 
 ##Goal##
-Create a small slider of text with a "tetris" interaction
 
 ![Image sketch]
 (doc/animation-design.png)
 
+Create a small slider of text with a "tetris" interaction
 
 
-###known issues###
+###Known issues###
 
-* if a font is loaded in async, the calculations of the width will be not correct, to prevent this problem call the plugin inside `$(window).on('load', function() {`
+* if a font is loaded in async, the calculations of the width will be not correct, to prevent this problem call the plugin inside `$(window).on('load', function() {});`
 
 
 
