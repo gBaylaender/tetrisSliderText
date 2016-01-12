@@ -1,6 +1,7 @@
 .general {
   overflow: hidden;
   font-size: 2em;
+  position: relative;
 }
 
 .wrapper {
@@ -16,7 +17,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  background:rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.3);
   @extend .clearfix;
   //height:100px;
 }
@@ -35,7 +36,6 @@
 
   &.text-right {
     opacity: 1;
-
   }
 }
 

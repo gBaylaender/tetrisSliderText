@@ -198,10 +198,24 @@ projetJSONCycle = function(projetJSON) {
     var projetJSONResp = projetJSON;
     if (projetJSON.length > 0) {
         for (var i = 0; i < projetJSON.length; i++) {
-            var video = projetJSON[i];
+            var proj = projetJSON[i];
 
-            if (video.hasOwnProperty('slides')) {
-                var slides = video.slides;
+
+            if (proj.hasOwnProperty('videoID')) videoID = proj.videoID;
+            if (proj.hasOwnProperty('bgImg')) bgImg = proj.bgImg;
+
+
+
+            if (videoID !== null || videoID !== undefined) {
+                //do nothing
+            } else {
+                console.log('coiao');
+            }
+
+
+
+            if (proj.hasOwnProperty('slides')) {
+                var slides = proj.slides;
 
                 for (var n = 0; n < slides.length; n++) {
                     var slide = slides[n];
@@ -213,7 +227,6 @@ projetJSONCycle = function(projetJSON) {
                     if (slide.hasOwnProperty('descriptions')) descriptions = slide.descriptions;
                     if (slide.hasOwnProperty('showSlide')) showSlide = slide.showSlide;
                     if (slide.hasOwnProperty('translateSlide')) translateSlide = slide.translateSlide;
-
 
                     var createSlide = '<div class="slide slide__' + n + '"></div>';
 

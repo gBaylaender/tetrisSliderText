@@ -1,6 +1,6 @@
 [{
     "videoID": null,
-    "img": "http://lorempixel.com/1280/720/sports/1/",
+    "bgImg": "http://lorempixel.com/1280/720/sports/1/",
     "slides": [{
         "descriptions": ["Text Text 1.1", "Lorem ipsum", "Lorem ipsum dolor"],
         "showSlide": 0,

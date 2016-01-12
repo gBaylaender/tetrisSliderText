@@ -427,7 +427,8 @@ textarea {
 
 .general {
   overflow: hidden;
-  font-size: 2em; }
+  font-size: 2em;
+  position: relative; }
 
 .wrapper {
   width: 50%;
