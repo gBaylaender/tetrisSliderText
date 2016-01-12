@@ -11,7 +11,7 @@
                 isActive: 'slide--is-active',
                 isShowing: 'slide--showing',
                 speed: 1200,
-                timer: true,
+                timer: false,
                 timeIn: 0,
                 timeOut: 2000,
                 slidingTheme: false
@@ -45,7 +45,7 @@
             //#0 START
             //////////////////////////////////////////////////////////////////////////////
 
-            $(settings.container).css('min-width', containerWidth); //set the width of container based on the slide elements
+            $(settings.container).css('min-width', containerWidth +1); //set the width of container based on the slide elements
             if (settings.slidingTheme === true) {
                 $(settings.wrapper).css('overflow', 'hidden'); //All slide go out the wrapper, but not first element
                 $(settings.slide).not('.' + settings.isActive).css('left', wrapperW); //All slide go out the wrapper, but not first element
@@ -201,168 +201,101 @@
 
 //#5 Load JSON
 //////////////////////////////////////////////////////////////////////////////
-loadVideoTiming = function() {
-    var timingJSON = $.getJSON("timing.json", function() {
+var jsonResp = null;
+jsonFor = function(json) {
+
+    jsonResp = json;
+    if (json.length > 0) {
+        for (var i = 0; i < json.length; i++) {
+            var video = json[i];
+
+            if (video.hasOwnProperty('slides')) {
+                var slides = video.slides;
+
+                for (var n = 0; n < slides.length; n++) {
+                    var slide = slides[n];
+
+                    var descriptions = null;
+                    var timeIn = null;
+                    var timeOut = null;
+
+                    if (slide.hasOwnProperty('descriptions')) descriptions = slide.descriptions;
+                    if (slide.hasOwnProperty('timeIn')) timeIn = slide.timeIn;
+                    if (slide.hasOwnProperty('timeOut')) timeOut = slide.timeOut;
+
+
+                    var createSlides = '<div class="slides"></div>',
+                        createSlide = '<div class="slide slide__' + n + '"></div>';
+
+
+
+                    //crea html slide
+
+                    $('.wrapper .slides').append(createSlide);
+
+
+                    $('.slide:first-child').addClass('slide--is-active');
+
+
+
+
+
+
+                    for (var t = 0; t < descriptions.length; t++) {
+                        var textDescr = descriptions[t];
+
+                        //crea html description
+                        var createText = '<div class="slide__text slide__text__' + t + '">' + textDescr + '</div>';
+
+
+                        $('.wrapper .slide__' + n).append(createText);
+
+
+
+
+
+                    }
+                }
+            }
+        }
+    }
+
+};
+
+
+
+//run slideTexting
+$(document).ready(function() {
+
+
+    $.ajax({
+            url: 'timing.json',
+            type: 'POST',
+            dataType: 'json',
+            success: jsonFor
+        })
+        .done(function() {
             console.log("success");
-        }).done(function() {
-            console.log("second success");
+
+            setTimeout(function() {
+                $('.slideTexting').slideTexting({
+                    timeOut: 5500
+                });
+            }, 1000);
         })
         .fail(function() {
             console.log("error");
         })
         .always(function() {
             console.log("complete");
-        }).complete(function() {
-            console.log("second complete");
         });
-    console.log('JSON: ' + timingJSON.video0.slide0.description[1]);
-};
 
 
 
 
-//run slideTexting
-$(document).ready(function() {
-    $('.slideTexting').slideTexting({
-        timeOut: 1500
-    });
+
+
+
+
+
 });
-
-
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-/*
-
-wTextSmaller = function() {
-    $('.' + settings.isActive).find(settings.slideText).each(function(index, el) {
-        var w = $(this).attr('data-textwidth');
-
-        if (TextSmaller === null || parseInt(w) < TextSmaller) {
-            TextSmaller = w;
-        }
-    });
-    console.log('TextSmaller: ' + TextSmaller);
-};
-
-
-
-///TEST
-var currentIndex = 0,
-    $items = $(settings.slide),
-    nItems = $(settings.slide).length,
-    $container = $(settings.container),
-    elm = $container.find(':first-child').prop('tagName'),
-    containerWidth = $container.width();
-
-
-
-var run = setInterval(rotate, speed);
-
-
-//get width of each text element
-var textW = $(settings.slideText).each(function() {
-    var w = $(this).width();
-    console.log(w);
-});
-
-
-$items.width(containerWidth);
-//set the slides to the correct pixel width
-
-$container.parent().width(containerWidth);
-
-$container.width(slides.length * containerWidth); //set the slides $container to the correct total width
-
-$container.find(elm + ':first').before($container.find(elm + ':last'));
-
-resetSlides();
-
-
-
-
-function cycleItems() {
-    var item = $(settings.slide).eq(currentIndex);
-    $items.hide();
-    item.css('display', 'inline-block');
-}
-
-
-//autoSlide
-if (settings.autoSlide === true) {
-    var autoSlideing = setInterval(function() {
-        currentIndex += 1;
-        if (currentIndex > nItems) {
-            currentIndex = 0;
-        }
-        cycleItems();
-
-    }, settings.speed);
-}
-
-
-
-
-
-console.log(nItems + ' textW:' + textW);
-
-
-*/
-/*
-//SLIDER
-///////////////////////////
-
-            $('#checkbox').change(function() {
-                setInterval(function() {
-                    moveRight();
-                }, settings.speed);
-            });
-
-            var slideCount = $(settings.slide).length,
-                slideWidth = $(settings.slide).width(),
-                slideHeight = $(settings.slide).height(),
-                sliderUlWidth = slideCount * slideWidth;
-
-            $(settings.wrapper).css({
-                width: slideWidth,
-                height: slideHeight
-            });
-
-            $(settings.container).css({
-                width: sliderUlWidth,
-                marginLeft: -slideWidth
-            });
-
-            $(settings.slide + ':last-child').prependTo(settings.container);
-
-            function moveLeft() {
-                $(settings.container).animate({
-                    left: +slideWidth
-                }, 200, function() {
-                    $(settings.slide + ':last-child').prependTo(settings.container);
-                    $(settings.container).css('left', '');
-                });
-            }
-
-            function moveRight() {
-                $(settings.container).animate({
-                    left: -slideWidth
-                }, 200, function() {
-                    $(settings.slide + ':first-child').appendTo(settings.container);
-                    $(settings.container).css('left', '');
-                });
-            }
-
-            $('a.control_prev').click(function() {
-                moveLeft();
-            });
-
-            $('a.control_next').click(function() {
-                moveRight();
-            });
-
-
-
-*/
