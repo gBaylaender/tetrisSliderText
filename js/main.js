@@ -94,6 +94,20 @@
                         });
                     }
                 }
+
+
+
+                //set current slide number,
+                if (currentSlide < nSlides) {
+                    currentSlide++; //set counter of currentSlide
+                } else {
+                    currentSlide = 0; //reset the counter of currentSlide
+                    resetSlides();
+                }
+
+
+
+
             };
 
             //#3 slideActive go out, next slide take positio as slideActive
@@ -121,7 +135,6 @@
                     'margin-left': -1 * ($(this).attr('data-slidewith'))
                 });
 
-
                 //Align Right Active Slide
                 for (var i = 0; i < nText; i++) {
                     $slideActive.find('.slide__text__' + i).animate({
@@ -143,24 +156,11 @@
                     .addClass(settings.isActive).removeClass(settings.isShowing);
             };
 
-
-            //#5 Load JSON
-            //////////////////////////////////////////////////////////////////////////////
-            loadVideoTiming = function() {
-                var timingJSON = $.getJSON("timing.json", function() {
-                        console.log("success");
-                    }).done(function() {
-                        console.log("second success");
-                    })
-                    .fail(function() {
-                        console.log("error");
-                    })
-                    .always(function() {
-                        console.log("complete");
-                    }).complete(function() {
-                        console.log("second complete");
-                    });
-                console.log('JSON: ' + timingJSON.video0.slide0.description[1]);
+            //#6 Reset
+            resetSlides = function() {
+                $(settings.slide).removeAttr('style').removeClass(settings.isActive);
+                $(settings.slideText).removeAttr('style');
+                $(settings.slide + ':first-child').addClass(settings.isActive);
             };
 
             if (settings.timer === true) {
@@ -174,14 +174,8 @@
                 }, settings.timeOut);
 
             }
-            //SET TIMING
 
-
-
-
-
-
-                        //TEST
+            //TEST
             $('#btn-1').click(function() {
                 console.log('btn-1');
                 slideAnimationNext(function() {
@@ -193,9 +187,10 @@
                 animationSlideActive();
             });
 
-
-
-
+            $('#btn-3').click(function() {
+                console.log('btn-3');
+                resetSlides();
+            });
 
         });
     };
@@ -204,7 +199,24 @@
 
 
 
-
+//#5 Load JSON
+//////////////////////////////////////////////////////////////////////////////
+loadVideoTiming = function() {
+    var timingJSON = $.getJSON("timing.json", function() {
+            console.log("success");
+        }).done(function() {
+            console.log("second success");
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        }).complete(function() {
+            console.log("second complete");
+        });
+    console.log('JSON: ' + timingJSON.video0.slide0.description[1]);
+};
 
 
 
@@ -212,14 +224,8 @@
 //run slideTexting
 $(document).ready(function() {
     $('.slideTexting').slideTexting({
-        timeOut:1500
+        timeOut: 1500
     });
-    // setTimeout(function(){
-    //     $('.slideTexting').slideTexting({
-    //         timeOut:1500
-    //     });
-    // },5000);
-
 });
 
 
