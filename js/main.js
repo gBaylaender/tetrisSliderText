@@ -41,10 +41,8 @@
                 TextSmaller = null,
                 currentSlide = 1; // current Slide
 
-
             //#0 START
             //////////////////////////////////////////////////////////////////////////////
-
             $(settings.container).css('min-width', containerWidth + 1); //set the width of container based on the slide elements
             if (settings.slidingTheme === true) {
                 $(settings.wrapper).css('overflow', 'hidden'); //All slide go out the wrapper, but not first element
@@ -92,8 +90,6 @@
                         });
                     }
                 }
-
-
 
                 //set current slide number,
                 if (currentSlide < nSlides) {
@@ -151,7 +147,9 @@
                     .addClass(settings.isActive).removeClass(settings.isShowing);
             };
 
-            //#6 Reset
+            //#4 Reset
+            //////////////////////////////////////////////////////////////////////////////
+
             resetSlides = function() {
                 $(settings.slide).removeAttr('style').removeClass(settings.isActive);
                 $(settings.slideText).removeAttr('style');
@@ -167,7 +165,6 @@
                 setTimeout(function() {
                     animationSlideActive();
                 }, settings.translateSlide);
-
             }
 
             //TEST
@@ -234,7 +231,6 @@ projetJSONCycle = function(projetJSON) {
             }
         }
     }
-
 };
 
 
