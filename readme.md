@@ -8,6 +8,13 @@ Create a small slider of text with a "tetris" interaction
 (doc/animation-design.png)
 
 
+
+###known issues###
+
+* if a font is loaded in async, the calculations of the width will be not correct, to prevent this problem call the plugin inside `$(window).on('load', function() {`
+
+
+
 ###Logical Process###
 A possible approach could be:
 (use margin-left or position.left)
