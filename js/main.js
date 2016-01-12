@@ -11,9 +11,9 @@
                 isActive: 'slide--is-active',
                 isShowing: 'slide--showing',
                 speed: 1200,
-                timer: false,
-                timeIn: 0,
-                timeOut: 2000,
+                timer: true,
+                showSlide: 0,
+                translateSlide: 2000,
                 slidingTheme: false
             }, options);
 
@@ -45,7 +45,7 @@
             //#0 START
             //////////////////////////////////////////////////////////////////////////////
 
-            $(settings.container).css('min-width', containerWidth +1); //set the width of container based on the slide elements
+            $(settings.container).css('min-width', containerWidth + 1); //set the width of container based on the slide elements
             if (settings.slidingTheme === true) {
                 $(settings.wrapper).css('overflow', 'hidden'); //All slide go out the wrapper, but not first element
                 $(settings.slide).not('.' + settings.isActive).css('left', wrapperW); //All slide go out the wrapper, but not first element
@@ -53,7 +53,7 @@
 
             //#1 Next slide coming
             //////////////////////////////////////////////////////////////////////////////
-            slideAnimationNext = function(callback) {
+            showSlide = function(callback) {
                 console.log('#1');
                 var $slideActive = $('.' + settings.isActive),
                     slideActiveW = Math.ceil($slideActive.outerWidth());
@@ -66,8 +66,6 @@
                 }
                 callback();
             };
-
-
 
             //#2 Next slide coming (text tetris)
             //////////////////////////////////////////////////////////////////////////////
@@ -104,9 +102,6 @@
                     currentSlide = 0; //reset the counter of currentSlide
                     resetSlides();
                 }
-
-
-
 
             };
 
@@ -165,20 +160,20 @@
 
             if (settings.timer === true) {
                 setTimeout(function() {
-                    slideAnimationNext(function() {
+                    showSlide(function() {
                         animationTextTetris();
                     });
-                }, settings.timeIn);
+                }, settings.showSlide);
                 setTimeout(function() {
                     animationSlideActive();
-                }, settings.timeOut);
+                }, settings.translateSlide);
 
             }
 
             //TEST
             $('#btn-1').click(function() {
                 console.log('btn-1');
-                slideAnimationNext(function() {
+                showSlide(function() {
                     animationTextTetris();
                 });
             });
@@ -201,13 +196,12 @@
 
 //#5 Load JSON
 //////////////////////////////////////////////////////////////////////////////
-var jsonResp = null;
-jsonFor = function(json) {
-
-    jsonResp = json;
-    if (json.length > 0) {
-        for (var i = 0; i < json.length; i++) {
-            var video = json[i];
+var projetJSONResp = null;
+projetJSONCycle = function(projetJSON) {
+    var projetJSONResp = projetJSON;
+    if (projetJSON.length > 0) {
+        for (var i = 0; i < projetJSON.length; i++) {
+            var video = projetJSON[i];
 
             if (video.hasOwnProperty('slides')) {
                 var slides = video.slides;
@@ -216,44 +210,25 @@ jsonFor = function(json) {
                     var slide = slides[n];
 
                     var descriptions = null;
-                    var timeIn = null;
-                    var timeOut = null;
+                    var showSlide = null;
+                    var translateSlide = null;
 
                     if (slide.hasOwnProperty('descriptions')) descriptions = slide.descriptions;
-                    if (slide.hasOwnProperty('timeIn')) timeIn = slide.timeIn;
-                    if (slide.hasOwnProperty('timeOut')) timeOut = slide.timeOut;
+                    if (slide.hasOwnProperty('showSlide')) showSlide = slide.showSlide;
+                    if (slide.hasOwnProperty('translateSlide')) translateSlide = slide.translateSlide;
 
 
-                    var createSlides = '<div class="slides"></div>',
-                        createSlide = '<div class="slide slide__' + n + '"></div>';
+                    var createSlide = '<div class="slide slide__' + n + '"></div>';
 
+                    $('.wrapper .slides').append(createSlide); //create slides
+                    $('.slide:first-child').addClass('slide--is-active'); //set the first as active
 
-
-                    //crea html slide
-
-                    $('.wrapper .slides').append(createSlide);
-
-
-                    $('.slide:first-child').addClass('slide--is-active');
-
-
-
-
-
-
+                    //set descriptions
                     for (var t = 0; t < descriptions.length; t++) {
                         var textDescr = descriptions[t];
-
-                        //crea html description
                         var createText = '<div class="slide__text slide__text__' + t + '">' + textDescr + '</div>';
 
-
-                        $('.wrapper .slide__' + n).append(createText);
-
-
-
-
-
+                        $('.wrapper .slide__' + n).append(createText); //create texts
                     }
                 }
             }
@@ -267,21 +242,19 @@ jsonFor = function(json) {
 //run slideTexting
 $(document).ready(function() {
 
-
     $.ajax({
             url: 'timing.json',
             type: 'POST',
             dataType: 'json',
-            success: jsonFor
+            success: projetJSONCycle
         })
         .done(function() {
             console.log("success");
 
-            setTimeout(function() {
-                $('.slideTexting').slideTexting({
-                    timeOut: 5500
-                });
-            }, 1000);
+            $('.slideTexting').slideTexting({
+                showSlide: 1000,
+                translateSlide: 2000
+            });
         })
         .fail(function() {
             console.log("error");
@@ -289,12 +262,6 @@ $(document).ready(function() {
         .always(function() {
             console.log("complete");
         });
-
-
-
-
-
-
 
 
 
