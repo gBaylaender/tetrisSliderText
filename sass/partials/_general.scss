@@ -2,6 +2,7 @@
   overflow: hidden;
   font-size: 2em;
   position: relative;
+  @include transition;
 }
 
 .wrapper {
@@ -40,18 +41,8 @@
 }
 
 .slide__0 {
-  //background: $c-1;
   font-weight: bold;
 }
-
-.slide__1 {
-  //background: $c-2;
-}
-
-.slide__2 {
-  //background: $c-3;
-}
-
 .slide--hide {
   display: none;
 }
@@ -102,4 +93,22 @@
 .control_next {
   right: 0;
   border-radius: 2px 0 0 2px;
+}
+
+
+//colors
+.bg--1 {
+  background-color: $c-1;
+}
+.bg--2 {
+  background-color: $c-2;
+}
+.bg--3 {
+  background-color: $c-3;
+}
+.bg--4 {
+  background-color: $c-4;
+}
+.bg--5 {
+  background-color: $c-5;
 }

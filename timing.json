@@ -4,22 +4,27 @@
     "slides": [{
         "descriptions": ["Text Text 1.1", "Lorem ipsum", "Lorem ipsum dolor"],
         "showSlide": 0,
-        "translateSlide": 2
+        "translateSlide": 2,
+        "selColor":1
     }, {
         "descriptions": ["Sed ut perspiciatis unde", "Test texts 2.2", "Nemo enim ipsam"],
         "showSlide": 4,
-        "translateSlide": 6
+        "translateSlide": 6,
+        "selColor":2
     }, {
         "descriptions": ["Li Europan lingues", "On refusa continuar", "Textss 3.3"],
         "showSlide": 6,
-        "translateSlide": 8
+        "translateSlide": 8,
+        "selColor":3
     }, {
         "descriptions": ["Far far away,", "behind the word mountains", "far from the countries"],
         "showSlide": 10,
-        "translateSlide": 12
+        "translateSlide": 12,
+        "selColor":4
     }, {
         "descriptions": ["A wonderful serenity", "has taken possession", "of my entire soul"],
         "showSlide": 12,
-        "translateSlide": 14
+        "translateSlide": 14,
+        "selColor":5
     }]
 }]

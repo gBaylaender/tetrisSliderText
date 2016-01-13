@@ -10,6 +10,7 @@
                 slideText: '.slide__text',
                 isActive: 'slide--is-active',
                 isShowing: 'slide--showing',
+                changeBg: ".general",
                 speed: 1200,
                 timer: true,
                 showSlide: 0,
@@ -140,14 +141,30 @@
                     }, speed2);
 
 
+
                 //add active class to active.next()
                 $slideActive
                     .removeClass(settings.isActive)
                     .next()
-                    .addClass(settings.isActive).removeClass(settings.isShowing);
+                    .addClass(settings.isActive).removeClass(settings.isShowing)
+                    .queue(function(){
+                        setTimeout(function() {
+                            $slideActive.css('opacity',0);
+                        }, 3000);
+                        setTimeout(function() {
+                            $(settings.changeBg)
+                                .addClass('bg--' + currentSlide)
+                                .removeClass('bg--' + (currentSlide - 1));
+                            console.log('ciao');
+                        }, 5000);
+                    });
+
+
+
             };
 
-            //#4 Reset
+
+            //#5 Reset
             //////////////////////////////////////////////////////////////////////////////
 
             resetSlides = function() {
