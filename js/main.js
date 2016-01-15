@@ -120,7 +120,7 @@
                     .css({
                         'margin-left': -1 * slideActiveOutW,
                         'opacity': 1
-                    }, settings.speed);
+                    });
 
                 //#C slide active margin left
                 $slideActive.css({
@@ -150,13 +150,11 @@
                     .queue(function(){
                         setTimeout(function() {
                             $slideActive.css('opacity',0);
-                        }, 3000);
-                        setTimeout(function() {
                             $(settings.changeBg)
                                 .addClass('bg--' + currentSlide)
                                 .removeClass('bg--' + (currentSlide - 1));
                             console.log('ciao');
-                        }, 5000);
+                        }, settings.speed + 300);
                     });
 
 
@@ -171,6 +169,13 @@
                 $(settings.slide).removeAttr('style').removeClass(settings.isActive);
                 $(settings.slideText).removeAttr('style');
                 $(settings.slide + ':first-child').addClass(settings.isActive);
+
+                currentSlide = 1;
+
+
+                $(settings.changeBg)
+                    .addClass('bg--' + currentSlide)
+                    .removeClass('bg--' + (currentSlide - 1));
             };
 
             if (settings.timer === true) {

@@ -438,7 +438,7 @@ textarea {
 .wrapper {
   width: 50%;
   max-width: 800px;
-  background-color: gray;
+  background-color: rgba(255, 255, 255, 0.3);
   margin: 0 auto;
   position: relative; }
 
@@ -446,7 +446,7 @@ textarea {
   width: 100%;
   margin: 0;
   padding: 0;
-  background: rgba(255, 255, 255, 0.3); }
+  background: none; }
 
 .slide {
   position: relative;
@@ -456,11 +456,11 @@ textarea {
   padding: 10px;
   opacity: 0;
   left: 0;
-  -webkit-transition: all 900ms ease;
-  -moz-transition: all 900ms ease;
-  -ms-transition: all 900ms ease;
-  -o-transition: all 900ms ease;
-  transition: all 900ms ease; }
+  -webkit-transition: all 1600ms ease;
+  -moz-transition: all 1600ms ease;
+  -ms-transition: all 1600ms ease;
+  -o-transition: all 1600ms ease;
+  transition: all 1600ms ease; }
   .slide.text-right {
     opacity: 1; }
 
