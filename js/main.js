@@ -12,6 +12,7 @@
                 isShowing: 'slide--showing',
                 changeBgColor: true,
                 selBgColor: '.general',
+                bgPrefix: 'bg--',
                 speed: 1200,
                 timer: true,
                 showSlide: 0,
@@ -166,8 +167,8 @@
                             $slideActive.css('opacity', 0);
                             if (settings.changeBgColor === true) {
                                 $(settings.selBgColor)
-                                    .addClass('bg--' + currentBgColor)
-                                    .removeClass('bg--' + (currentBgColor - 1));
+                                    .addClass(settings.bgPrefix + currentBgColor)
+                                    .removeClass(settings.bgPrefix + (currentBgColor - 1));
                             }
                         }, settings.speed + 300);
                     });
