@@ -10,12 +10,13 @@
                 slideText: '.slide__text',
                 isActive: 'slide--is-active',
                 isShowing: 'slide--showing',
-                changeBg: ".general",
+                changeBgColor: true,
+                selBgColor: '.general',
                 speed: 1200,
                 timer: true,
                 showSlide: 0,
                 translateSlide: 2000,
-                slidingTheme: false
+                slidingTheme: false,
             }, options);
 
             //DOM cache
@@ -40,7 +41,10 @@
                 }),
                 speed2 = Math.floor(settings.speed / 2),
                 TextSmaller = null,
-                currentSlide = 1; // current Slide
+                currentSlide = 1,
+                classNameBgColor = []; // current Slide
+
+
 
             //#0 START
             //////////////////////////////////////////////////////////////////////////////
@@ -50,6 +54,10 @@
                 $(settings.slide).not('.' + settings.isActive).css('left', wrapperW); //All slide go out the wrapper, but not first element
             }
 
+            if (settings.changeBgColor === true) {
+                classNameBgColor = $(settings.selBgColor).attr('class').split(/\s+/);
+            }
+console.log(classNameBgColor);
             //#1 Next slide coming
             //////////////////////////////////////////////////////////////////////////////
             showSlide = function(callback) {
@@ -147,13 +155,18 @@
                     .removeClass(settings.isActive)
                     .next()
                     .addClass(settings.isActive).removeClass(settings.isShowing)
-                    .queue(function(){
+                    .queue(function() {
                         setTimeout(function() {
-                            $slideActive.css('opacity',0);
-                            $(settings.changeBg)
-                                .addClass('bg--' + currentSlide)
-                                .removeClass('bg--' + (currentSlide - 1));
-                            console.log('ciao');
+                            $slideActive.css('opacity', 0);
+
+                            if (settings.changeBgColor === true) {
+                                console.log('true');
+
+                                $(settings.selBgColor)
+                                    .addClass('bg--' + currentSlide)
+                                    .removeClass('bg--' + (currentSlide - 1));
+                            }
+
                         }, settings.speed + 300);
                     });
 
@@ -172,10 +185,12 @@
 
                 currentSlide = 1;
 
-
-                $(settings.changeBg)
-                    .addClass('bg--' + currentSlide)
-                    .removeClass('bg--' + (currentSlide - 1));
+                if (settings.changeBgColor === true) {
+                    var classNameBgColorString = classNameBgColor.toString().replace(',',' ');//get array of class, remove comma and add space
+                    $(settings.selBgColor)
+                        .removeAttr('class')
+                        .addClass(classNameBgColorString);
+                }
             };
 
             if (settings.timer === true) {
