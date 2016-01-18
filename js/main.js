@@ -49,7 +49,7 @@
 
             //#0 START
             //////////////////////////////////////////////////////////////////////////////
-            $(settings.container).css('min-width', containerWidth + 1); //set the width of container based on the slide elements
+            $(settings.container).css('min-width', containerWidth + 100); //set the width of container based on the slide elements
             if (settings.slidingTheme === true) {
                 $(settings.wrapper).css('overflow', 'hidden'); //All slide go out the wrapper, but not first element
                 $(settings.slide).not('.' + settings.isActive).css('left', wrapperW); //All slide go out the wrapper, but not first element
