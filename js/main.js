@@ -41,8 +41,9 @@
                 }),
                 speed2 = Math.floor(settings.speed / 2),
                 TextSmaller = null,
-                currentSlide = 1,
-                classNameBgColor = []; // current Slide
+                currentSlide = 1, // current Slide
+                currentBgColor = 0, // current background color
+                classNameBgColor = []; // array of class in the elBg
 
 
 
@@ -57,7 +58,8 @@
             if (settings.changeBgColor === true) {
                 classNameBgColor = $(settings.selBgColor).attr('class').split(/\s+/);
             }
-console.log(classNameBgColor);
+
+
             //#1 Next slide coming
             //////////////////////////////////////////////////////////////////////////////
             showSlide = function(callback) {
@@ -148,30 +150,27 @@ console.log(classNameBgColor);
                         'margin-left': 0
                     }, speed2);
 
-
+                //get and set bg color
+                if (settings.changeBgColor === true) {
+                    currentBgColor = $slideActive.next().attr('data-bgcolor');
+                }
 
                 //add active class to active.next()
                 $slideActive
                     .removeClass(settings.isActive)
                     .next()
-                    .addClass(settings.isActive).removeClass(settings.isShowing)
+                    .addClass(settings.isActive)
+                    .removeClass(settings.isShowing)
                     .queue(function() {
-                        setTimeout(function() {
+                        setTimeout(function() { //import to have a good cross fade effect
                             $slideActive.css('opacity', 0);
-
                             if (settings.changeBgColor === true) {
-                                console.log('true');
-
                                 $(settings.selBgColor)
-                                    .addClass('bg--' + currentSlide)
-                                    .removeClass('bg--' + (currentSlide - 1));
+                                    .addClass('bg--' + currentBgColor)
+                                    .removeClass('bg--' + (currentBgColor - 1));
                             }
-
                         }, settings.speed + 300);
                     });
-
-
-
             };
 
 
@@ -186,7 +185,7 @@ console.log(classNameBgColor);
                 currentSlide = 1;
 
                 if (settings.changeBgColor === true) {
-                    var classNameBgColorString = classNameBgColor.toString().replace(',',' ');//get array of class, remove comma and add space
+                    var classNameBgColorString = classNameBgColor.toString().replace(',', ' '); //get array of class, remove comma and add space
                     $(settings.selBgColor)
                         .removeAttr('class')
                         .addClass(classNameBgColorString);
@@ -237,7 +236,7 @@ projetJSONCycle = function(projetJSON) {
         for (var i = 0; i < projetJSON.length; i++) {
             var proj = projetJSON[i];
 
-
+            // check if JSON isn't corrupt
             if (proj.hasOwnProperty('videoID')) videoID = proj.videoID;
             if (proj.hasOwnProperty('bgImg')) bgImg = proj.bgImg;
 
@@ -257,15 +256,18 @@ projetJSONCycle = function(projetJSON) {
                 for (var n = 0; n < slides.length; n++) {
                     var slide = slides[n];
 
-                    var descriptions = null;
-                    var showSlide = null;
-                    var translateSlide = null;
+                    var descriptions = null,
+                        showSlide = null,
+                        translateSlide = null,
+                        bgcolor = null;
 
                     if (slide.hasOwnProperty('descriptions')) descriptions = slide.descriptions;
                     if (slide.hasOwnProperty('showSlide')) showSlide = slide.showSlide;
                     if (slide.hasOwnProperty('translateSlide')) translateSlide = slide.translateSlide;
+                    if (slide.hasOwnProperty('bgcolor')) bgcolor = slide.bgcolor;
 
-                    var createSlide = '<div class="slide slide__' + n + '"></div>';
+
+                    var createSlide = '<div class="slide slide__' + n + '" data-bgcolor="' + bgcolor + '"></div>';
 
                     $('.wrapper .slides').append(createSlide); //create slides
                     $('.slide:first-child').addClass('slide--is-active'); //set the first as active
