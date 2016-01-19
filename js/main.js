@@ -27,18 +27,21 @@
 
             //Configuration
             /////////////////////////////////////////////////
-            var containerWidth = 0, //set total width of container/slides
-                wrapperW = Math.ceil($(settings.wrapper).width()), //get width of the wrapper
+            var containerWidth = 0,
+                ceil = Math.ceil, //set total width of container/slides
+                wrapperW = ceil($(settings.wrapper).width()), //get width of the wrapper
                 nSlides = $(settings.slide).length, // get how many slide have
                 textsW = $(settings.slideText).each(function() { //get all width for each text
-                    var w = Math.ceil($(this).width());
-                    $(this).attr('data-textwidth', w); //set attr data-textwidth to the element text
+                    var $this = $(this),
+                        w = ceil($this.width());
+                    $this.attr('data-textwidth', w); //set attr data-textwidth to the element text
                 }),
                 textWSmallest = 0,
                 slidesW = $(settings.slide).each(function() {
-                    var w = Math.ceil($(this).outerWidth());
-                    containerWidth += parseInt($(this).outerWidth(), 10); //calculate the width of container
-                    $(this).attr('data-slidewidth', w); //set attr data-textwidth to the element text
+                    var $this = $(this),
+                        w = ceil($this.outerWidth());
+                    containerWidth += parseInt($this.outerWidth(), 10); //calculate the width of container
+                    $this.attr('data-slidewidth', w); //set attr data-textwidth to the element text
                 }),
                 speed2 = Math.floor(settings.speed / 2),
                 TextSmaller = null,
@@ -63,10 +66,10 @@
 
             //#1 Next slide coming
             //////////////////////////////////////////////////////////////////////////////
-            showSlide = function(callback) {
+            var showSlide = function(callback) {
                 console.log('#1');
                 var $slideActive = $('.' + settings.isActive),
-                    slideActiveW = Math.ceil($slideActive.outerWidth());
+                    slideActiveW = ceil($slideActive.outerWidth());
 
                 if (settings.slidingTheme === true) {
                     $slideActive
@@ -79,12 +82,12 @@
 
             //#2 Next slide coming (text tetris)
             //////////////////////////////////////////////////////////////////////////////
-            animationTextTetris = function() {
+            var animationTextTetris = function() {
                 console.log('#2');
                 var $slideActive = $('.' + settings.isActive),
                     $slideActiveNext = $slideActive.next(),
                     $this = $($slideActiveNext),
-                    activeSlideW = Math.ceil($slideActive.width()),
+                    activeSlideW = ceil($slideActive.width()),
                     nText = $this.find(settings.slideText).length;
 
                 $this.addClass(settings.isShowing);
@@ -115,12 +118,12 @@
 
             //#3 slideActive go out, next slide take positio as slideActive
             //////////////////////////////////////////////////////////////////////////////
-            animationSlideActive = function() {
+            var animationSlideActive = function() {
                 console.log('#3');
 
                 var $slideActive = $('.' + settings.isActive),
-                    slideActiveW = Math.ceil($slideActive.width()),
-                    slideActiveOutW = Math.ceil($slideActive.outerWidth()),
+                    slideActiveW = ceil($slideActive.width()),
+                    slideActiveOutW = ceil($slideActive.outerWidth()),
                     nText = $slideActive.find(settings.slideText).length;
 
                 //#A Hide prev active slide before it translate to left
@@ -178,7 +181,7 @@
             //#5 Reset
             //////////////////////////////////////////////////////////////////////////////
 
-            resetSlides = function() {
+            var resetSlides = function() {
                 $(settings.slide).removeAttr('style').removeClass(settings.isActive);
                 $(settings.slideText).removeAttr('style');
                 $(settings.slide + ':first-child').addClass(settings.isActive);
@@ -231,7 +234,7 @@
 //#5 Load JSON
 //////////////////////////////////////////////////////////////////////////////
 var projetJSONResp = null;
-projetJSONCycle = function(projetJSON) {
+var projetJSONCycle = function(projetJSON) {
     var projetJSONResp = projetJSON;
     if (projetJSON.length > 0) {
         for (var i = 0; i < projetJSON.length; i++) {
