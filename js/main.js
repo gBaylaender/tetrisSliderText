@@ -29,11 +29,11 @@
             /////////////////////////////////////////////////
             var containerWidth = 0,
                 ceil = Math.ceil, //set total width of container/slides
-                wrapperW = ceil($(settings.wrapper).width()), //get width of the wrapper
+                wrapperW = ceil($(settings.wrapper).outerWidth()), //get width of the wrapper
                 nSlides = $(settings.slide).length, // get how many slide have
                 textsW = $(settings.slideText).each(function() { //get all width for each text
                     var $this = $(this),
-                        w = ceil($this.width());
+                        w = ceil($this.outerWidth());
                     $this.attr('data-textwidth', w); //set attr data-textwidth to the element text
                 }),
                 textWSmallest = 0,
@@ -189,7 +189,7 @@
                 currentSlide = 1;
 
                 if (settings.changeBgColor === true) {
-                    var classNameBgColorString = classNameBgColor.toString().replace(',', ' '); //get array of class, remove comma and add space
+                    var classNameBgColorString = classNameBgColor.join(" "); //get array of class, remove comma and add space
                     $(settings.selBgColor)
                         .removeAttr('class')
                         .addClass(classNameBgColorString);
